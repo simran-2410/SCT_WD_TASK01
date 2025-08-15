@@ -5,209 +5,222 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Coffee Delivery</title>
 <style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    body {font-family: Arial, sans-serif; transition: background-color 0.5s ease;}
+    * {margin:0; padding:0; box-sizing:border-box;}
+    body {font-family:Arial,sans-serif; transition:background-color 0.5s;}
     header {
-        position: fixed; top: 0; width: 100%; background: #fff8f9; 
-        display: flex; align-items: center; justify-content: space-between; 
-        padding: 10px 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000;
+        position:fixed; top:0; width:100%; background:#fff8f9;
+        display:flex; justify-content:space-between; align-items:center;
+        padding:10px 20px; box-shadow:0 2px 10px rgba(0,0,0,0.1); z-index:1000;
         transition: background 0.3s, box-shadow 0.3s, color 0.3s;
     }
-    header.scrolled { background: #ff8fab; color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-    nav ul {list-style: none; display: flex;}
+    header.scrolled { background:#ff8fab; color:white; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
+    nav ul {list-style:none; display:flex;}
     nav ul li {
-        margin: 0 10px; cursor: pointer; padding: 5px 10px; 
-        transition: background 0.3s, color 0.3s; border-radius: 5px;
+        margin:0 10px; cursor:pointer; padding:5px 10px; border-radius:5px;
+        transition: background 0.3s, color 0.3s;
     }
-    nav ul li:hover {background: #ff4d6d; color: white;}
-    header.scrolled nav ul li:hover {background: white; color: #ff4d6d;}
-
+    nav ul li:hover { background:#ff4d6d; color:white;}
+    header.scrolled nav ul li:hover { background:white; color:#ff4d6d;}
     .intro {
-        display: flex; align-items: center; padding: 100px 20px 20px; 
+        display:flex; align-items:center; padding:100px 20px 20px;
         background: linear-gradient(135deg, #ffe5ec, #ffcad4);
+        transition: background 0.5s;
     }
-    .intro img {max-width: 100px; margin-right: 20px; border-radius: 50%;}
-    .intro h1 {font-size: 2rem; margin-bottom: 10px;}
-    .intro p {color: #555;}
-
-    .section-title {text-align: center; margin-top: 40px; font-size: 2rem;}
+    .intro img {max-width:100px; margin-right:20px; border-radius:50%;}
+    .intro h1 {font-size:2rem; margin-bottom:10px;}
+    .intro p {color:#555;}
+    .section-title {text-align:center; margin-top:40px; font-size:2rem;}
     .menu-section {
-        display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-        gap: 20px; padding: 40px 20px;
+        display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+        gap:20px; padding:40px 20px;
     }
-
     .coffee-card {
-        background: white; padding: 15px; border-radius: 15px; 
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center;
-        transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s ease, transform 0.6s ease;
-        opacity: 0; transform: translateY(20px);
+        background:white; padding:15px; border-radius:15px;
+        box-shadow:0 4px 12px rgba(0,0,0,0.1); text-align:center;
+        transition: transform 0.3s, box-shadow 0.3s, opacity 0.6s ease;
+        opacity:0; transform:translateY(20px); position:relative;
     }
-    .coffee-card.visible { opacity: 1; transform: translateY(0); }
-    .coffee-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.2);}
-    .coffee-card img {width: 200px; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 10px;}
-    .coffee-card h2 {font-size: 1.3rem; margin-bottom: 8px;}
-    .coffee-card p {color: #666; margin-bottom: 8px; font-size: 0.9rem;}
-    .price {font-weight: bold; margin-bottom: 10px;}
-    .buttons { display: flex; justify-content: center; gap: 10px;}
+    .coffee-card.visible { opacity:1; transform:translateY(0);}
+    .coffee-card:hover { transform:translateY(-10px); box-shadow:0 10px 20px rgba(0,0,0,0.2);}
+    .coffee-card img {width:200px; height:200px; object-fit:cover; border-radius:10px; margin-bottom:10px;}
+    .coffee-card h2 {font-size:1.3rem; margin-bottom:8px;}
+    .coffee-card p {color:#666; margin-bottom:8px; font-size:0.9rem;}
+    .price {font-weight:bold; margin-bottom:10px;}
+    .buttons { display:flex; justify-content:center; gap:10px;}
     .buttons button {
-        padding: 6px 10px; border: none; border-radius: 5px; 
-        cursor: pointer; font-size: 0.9rem; transition: transform 0.2s;
+        padding:6px 10px; border:none; border-radius:5px;
+        cursor:pointer; font-size:0.9rem; transition: transform 0.2s;
     }
-    .buttons button:hover {transform: scale(1.05);}
-    .buy {background: #ff4d6d; color: white;}
-    .cart {background: #333; color: white;}
-    .buy:hover {background: #ff758f;}
-    .cart:hover {background: #555;}
-    .cart.clicked { animation: bounce 0.3s ease; }
+    .buttons button:hover { transform: scale(1.05);}
+    .buy {background:#ff4d6d; color:white;}
+    .cart {background:#333; color:white;}
+    .buy:hover { background:#ff758f;}
+    .cart:hover { background:#555;}
+    .cart.clicked, .buy.clicked { animation: bounce 0.3s ease; }
     @keyframes bounce {0%{transform:scale(1);}50%{transform:scale(1.2);}100%{transform:scale(1);}}
-
     footer {
-        background: linear-gradient(135deg, #ffd6e0, #ffc2d1);
-        border-radius: 15px 15px 0 0; padding: 40px 20px; text-align: center; color: #333;
+        background:linear-gradient(135deg,#ffd6e0,#ffc2d1);
+        border-radius:15px 15px 0 0; padding:40px 20px; text-align:center; color:#333;
     }
-    footer h2 {margin-bottom: 10px; color: #ff4d6d;}
-    footer p {max-width: 600px; margin: auto; color: #333;}
-
+    footer h2 {margin-bottom:10px; color:#ff4d6d;}
+    footer p {max-width:600px; margin:auto; color:#333;}
     #backToTop {
-        position: fixed; bottom: 20px; right: 20px; padding: 10px 15px; font-size: 16px; border: none; 
-        border-radius: 50%; background: #ff4d6d; color: white; cursor: pointer; display: none;
+        position:fixed; bottom:20px; right:20px; padding:10px 15px;
+        font-size:16px; border:none; border-radius:50%; background:#ff4d6d;
+        color:white; cursor:pointer; display:none;
     }
-
-    /* Modal styling */
-    .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto;
-        background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
-    .modal-content { background: white; padding: 30px; border-radius: 10px; width: 300px; position: relative; }
-    .modal-content h2 {text-align: center; margin-bottom: 20px;}
-    .modal-content input {width: 100%; padding: 8px; margin-bottom: 10px; border-radius:5px; border:1px solid #ccc;}
-    .modal-content button {width: 100%; padding: 10px; margin-top: 10px; background:#ff4d6d; color:white; border:none; border-radius:5px; cursor:pointer;}
-    .modal-content button:hover {background:#ff758f;}
-    .modal-close { position: absolute; top:10px; right:15px; cursor:pointer; font-size:18px; color:#333;}
+    .modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%;
+        background-color: rgba(0,0,0,0.5); justify-content:center; align-items:center;}
+    .modal-content { background:white; padding:30px; border-radius:10px; width:300px; position:relative;}
+    .modal-content h2 { text-align:center; margin-bottom:20px;}
+    .modal-content input {width:100%; padding:8px; margin-bottom:10px; border-radius:5px; border:1px solid #ccc;}
+    .modal-content button {width:100%; padding:10px; margin-top:10px; background:#ff4d6d; color:white; border:none; border-radius:5px; cursor:pointer;}
+    .modal-content button:hover { background:#ff758f;}
+    .modal-close { position:absolute; top:10px; right:15px; cursor:pointer; font-size:18px; color:#333;}
     .toggle-modal { text-align:center; margin-top:10px; cursor:pointer; color:#ff4d6d;}
+    .popup {
+        position:absolute; top:10px; left:50%; transform:translateX(-50%);
+        background:#ff4d6d; color:white; padding:5px 10px; border-radius:5px;
+        font-size:0.8rem; opacity:0; pointer-events:none; transition:opacity 0.3s, transform 0.3s;
+    }
 </style>
 </head>
 <body>
 
 <header>
-    <img src="https://i.pinimg.com/1200x/19/a6/28/19a628c2620ce665a1c257cea266a0be.jpg" alt="Logo" height="50">
-    <nav>
-        <ul>
-            <li onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});">Home</li>
-            <li onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'});">Menu</li>
-            <li onclick="document.getElementById('specials').scrollIntoView({behavior:'smooth'});">Special</li>
-            <li onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'});">About</li>
-            <li onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact</li>
-            <li onclick="openModal('login')">Sign In</li>
-        </ul>
-    </nav>
+<img src="https://i.pinimg.com/1200x/19/a6/28/19a628c2620ce665a1c257cea266a0be.jpg" alt="Logo" height="50">
+<nav>
+<ul>
+<li onclick="document.getElementById('home').scrollIntoView({behavior:'smooth'});">Home</li>
+<li onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'});">Menu</li>
+<li onclick="document.getElementById('specials').scrollIntoView({behavior:'smooth'});">Special</li>
+<li onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'});">About</li>
+<li onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'});">Contact</li>
+<li onclick="openModal('login')">Sign In</li>
+</ul>
+</nav>
 </header>
 
 <div class="intro" id="home">
-    <img src="https://i.pinimg.com/1200x/19/a6/28/19a628c2620ce665a1c257cea266a0be.jpg" alt="Logo">
-    <div>
-        <h1>Fresh Coffee, Fast Delivery</h1>
-        <p>Order your favorite coffee blends and have them delivered to your door. Freshly brewed, made with love.</p>
-    </div>
+<img src="https://i.pinimg.com/1200x/19/a6/28/19a628c2620ce665a1c257cea266a0be.jpg" alt="Logo">
+<div>
+<h1>Fresh Coffee, Fast Delivery</h1>
+<p>Order your favorite coffee blends and have them delivered to your door. Freshly brewed, made with love.</p>
+</div>
 </div>
 
 <h2 class="section-title" id="menu">Our Menu</h2>
 <div class="menu-section">
-    <!-- All original coffee cards -->
-    <div class="coffee-card"><img src="https://i.pinimg.com/736x/80/e2/0a/80e20ade3f26efeda7d18959547e23ad.jpg"><h2>Espresso</h2><p>Rich and bold, brewed from freshly ground beans.</p><div class="price">₹120</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/736x/c3/c1/9f/c3c19fc1f77a9427bc05ac7437f63fa6.jpg"><h2>Latte</h2><p>Creamy and smooth with a rich espresso base.</p><div class="price">₹150</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/736x/ee/cb/e1/eecbe189faa44566f84e564dce75f57b.jpg"><h2>Americano</h2><p>Perfectly balanced espresso with hot water.</p><div class="price">₹130</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/736x/7e/5f/14/7e5f14aa14558db771d1ed5165c1e325.jpg"><h2>Matcha</h2><p>Refreshing green tea latte with creamy texture.</p><div class="price">₹160</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/1200x/38/43/8a/38438a72f7204d51ebb32c3500b153f1.jpg"><h2>Macchiato</h2><p>Espresso topped with a dollop of steamed milk foam.</p><div class="price">₹170</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/1200x/32/58/39/32583955510da20a6abdb21eb9aa7e7d.jpg"><h2>Flat White</h2><p>Smooth espresso with velvety microfoam milk.</p><div class="price">₹180</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/1200x/f4/2f/96/f42f9655f8a3f1b0e2067f6538448e36.jpg"><h2>Irish Coffee</h2><p>Espresso with a kick of Irish cream and sugar.</p><div class="price">₹200</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/1200x/57/04/36/5704363aef45c992ee215c55e1d025cb.jpg"><h2>Frappe</h2><p>Chilled coffee blend with ice and cream.</p><div class="price">₹190</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<!-- COFFEE CARDS -->
+<div class="coffee-card"><img src="https://i.pinimg.com/736x/80/e2/0a/80e20ade3f26efeda7d18959547e23ad.jpg"><h2>Espresso</h2><p>Rich and bold, brewed from freshly ground beans.</p><div class="price">₹120</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/736x/c3/c1/9f/c3c19fc1f77a9427bc05ac7437f63fa6.jpg"><h2>Latte</h2><p>Creamy and smooth with a rich espresso base.</p><div class="price">₹150</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/736x/ee/cb/e1/eecbe189faa44566f84e564dce75f57b.jpg"><h2>Americano</h2><p>Perfectly balanced espresso with hot water.</p><div class="price">₹130</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/736x/7e/5f/14/7e5f14aa14558db771d1ed5165c1e325.jpg"><h2>Matcha</h2><p>Refreshing green tea latte with creamy texture.</p><div class="price">₹160</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/1200x/38/43/8a/38438a72f7204d51ebb32c3500b153f1.jpg"><h2>Macchiato</h2><p>Espresso topped with a dollop of steamed milk foam.</p><div class="price">₹170</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/1200x/32/58/39/32583955510da20a6abdb21eb9aa7e7d.jpg"><h2>Flat White</h2><p>Smooth espresso with velvety microfoam milk.</p><div class="price">₹180</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/1200x/f4/2f/96/f42f9655f8a3f1b0e2067f6538448e36.jpg"><h2>Irish Coffee</h2><p>Espresso with a kick of Irish cream and sugar.</p><div class="price">₹200</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/1200x/57/04/36/5704363aef45c992ee215c55e1d025cb.jpg"><h2>Frappe</h2><p>Chilled coffee blend with ice and cream.</p><div class="price">₹190</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
 </div>
 
 <h2 class="section-title" id="specials">Special Offers</h2>
 <p style="text-align:center; color:#666;">Get 20% off on orders above ₹500 and free delivery this week!</p>
 <div class="menu-section">
-    <!-- All original special items -->
-    <div class="coffee-card"><img src="https://i.pinimg.com/1200x/ce/a8/a8/cea8a8c18c58cc016854869f75175169.jpg"><h2>Croissant</h2><p>Buttery, flaky pastry perfect with coffee.</p><div class="price">₹80</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/1200x/60/c1/72/60c1723d8386ed00ce4e4b2ddb23f786.jpg"><h2>Muffin</h2><p>Soft, sweet, and loaded with flavor.</p><div class="price">₹90</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
-    <div class="coffee-card"><img src="https://i.pinimg.com/736x/43/d2/77/43d2772cc089cfa9090e7311b707ba70.jpg"><h2>Biscotti</h2><p>Crisp Italian biscuits perfect for dunking.</p><div class="price">₹70</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/1200x/ce/a8/a8/cea8a8c18c58cc016854869f75175169.jpg"><h2>Croissant</h2><p>Buttery, flaky pastry perfect with coffee.</p><div class="price">₹80</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/1200x/60/c1/72/60c1723d8386ed00ce4e4b2ddb23f786.jpg"><h2>Muffin</h2><p>Soft, sweet, and loaded with flavor.</p><div class="price">₹90</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
+<div class="coffee-card"><img src="https://i.pinimg.com/736x/43/d2/77/43d2772cc089cfa9090e7311b707ba70.jpg"><h2>Biscotti</h2><p>Crisp Italian biscuits perfect for dunking.</p><div class="price">₹70</div><div class="buttons"><button class="buy">Buy Now</button><button class="cart">Add to Cart</button></div></div>
 </div>
 
 <footer id="about">
-    <h2>About Us</h2>
-    <p>We are passionate coffee lovers delivering happiness in a cup. From classic espresso to trendy matcha, we bring only the freshest brews to your doorstep.</p>
-    <h2 style="margin-top:20px;" id="contact">Contact</h2>
-    <p>Email: hello@coffeedelivery.com | Phone: 0987654321</p>
+<h2>About Us</h2>
+<p>We are passionate coffee lovers delivering happiness in a cup. From classic espresso to trendy matcha, we bring only the freshest brews to your doorstep.</p>
+<h2 style="margin-top:20px;" id="contact">Contact</h2>
+<p>Email: hello@coffeedelivery.com | Phone: 0987654321</p>
 </footer>
 
 <button id="backToTop">↑</button>
 
-<!-- Sign In / Log In Modal -->
 <div id="authModal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" onclick="closeModal()">&times;</span>
-        <h2 id="modalTitle">Sign In</h2>
-        <div id="signupFields" style="display:none;">
-            <input type="text" placeholder="Full Name" id="name">
-        </div>
-        <input type="email" placeholder="Email" id="email">
-        <input type="password" placeholder="Password" id="password">
-        <p id="forgotPassword" style="text-align:right; color:#ff4d6d; cursor:pointer; font-size:0.9rem;">Forgot Password?</p>
-        <button id="authButton">Sign In</button>
-        <div class="toggle-modal" onclick="toggleAuth()">Don't have an account? Sign Up</div>
-    </div>
+<div class="modal-content">
+<span class="modal-close" onclick="closeModal()">&times;</span>
+<h2 id="modalTitle">Sign In</h2>
+<div id="signupFields" style="display:none;">
+<input type="text" placeholder="Full Name" id="name">
+</div>
+<input type="email" placeholder="Email" id="email">
+<input type="password" placeholder="Password" id="password">
+<p id="forgotPassword" style="text-align:right; color:#ff4d6d; cursor:pointer; font-size:0.9rem;">Forgot Password?</p>
+<button id="authButton">Sign In</button>
+<div class="toggle-modal" onclick="toggleAuth()">Don't have an account? Sign Up</div>
+</div>
 </div>
 
 <script>
-const colors = ['#ffe5ec', '#ffd6e0', '#ffc2d1', '#ffb3c6'];
-const header = document.querySelector('header');
-const backToTop = document.getElementById('backToTop');
-const cards = document.querySelectorAll('.coffee-card');
+const colors=['#ffe5ec','#ffd6e0','#ffc2d1','#ffb3c6'];
+const header=document.querySelector('header');
+const backToTop=document.getElementById('backToTop');
+const cards=document.querySelectorAll('.coffee-card');
 
-// Fade-in cards
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => { if(entry.isIntersecting){ entry.target.classList.add('visible'); } });
-}, { threshold: 0.1 });
-cards.forEach(card => observer.observe(card));
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');}});},{threshold:0.1});
+cards.forEach(card=>observer.observe(card));
 
-// Bounce effect for Add to Cart
-document.querySelectorAll('.cart').forEach(button => {
-    button.addEventListener('click', () => {
-        button.classList.add('clicked');
-        setTimeout(() => button.classList.remove('clicked'), 300);
+window.addEventListener('scroll',()=>{
+    const scrollY=window.scrollY;
+    document.body.style.backgroundColor=colors[Math.floor(scrollY/300)%colors.length];
+    if(scrollY>50) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    backToTop.style.display=scrollY>300?'block':'none';
+});
+backToTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+const modal=document.getElementById('authModal');
+const modalTitle=document.getElementById('modalTitle');
+const signupFields=document.getElementById('signupFields');
+const authButton=document.getElementById('authButton');
+const toggleText=document.querySelector('.toggle-modal');
+
+function openModal(type){
+    modal.style.display='flex';
+    if(type==='signup'){
+        modalTitle.textContent='Sign Up';
+        signupFields.style.display='block';
+        authButton.textContent='Sign Up';
+        toggleText.textContent='Already have an account? Log In';
+    }else{
+        modalTitle.textContent='Sign In';
+        signupFields.style.display='none';
+        authButton.textContent='Sign In';
+        toggleText.textContent="Don't have an account? Sign Up";
+    }
+}
+function closeModal(){ modal.style.display='none'; }
+function toggleAuth(){ if(modalTitle.textContent==='Sign In'){ openModal('signup'); }else{ openModal('login'); } }
+window.onclick=function(event){ if(event.target==modal){ closeModal(); } }
+
+// Add to Cart and Buy Now functionality
+document.querySelectorAll('.cart').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        btn.classList.add('clicked');
+        const popup=document.createElement('div');
+        popup.className='popup';
+        popup.textContent='Added to Cart!';
+        btn.parentElement.parentElement.appendChild(popup);
+        setTimeout(()=>{popup.style.opacity=1; popup.style.transform='translate(-50%,-20px)';},10);
+        setTimeout(()=>{popup.style.opacity=0; popup.style.transform='translate(-50%,0)';},1000);
+        setTimeout(()=>{popup.remove(); btn.classList.remove('clicked');},1300);
     });
 });
 
-// Scroll events
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    document.body.style.backgroundColor = colors[Math.floor(scrollY / 300) % colors.length];
-    if(scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled');
-    backToTop.style.display = scrollY > 300 ? 'block' : 'none';
+document.querySelectorAll('.buy').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+        btn.classList.add('clicked');
+        const popup=document.createElement('div');
+        popup.className='popup';
+        popup.textContent='Order Confirmed!';
+        btn.parentElement.parentElement.appendChild(popup);
+        setTimeout(()=>{popup.style.opacity=1; popup.style.transform='translate(-50%,-20px)';},10);
+        setTimeout(()=>{popup.style.opacity=0; popup.style.transform='translate(-50%,0)';},1000);
+        setTimeout(()=>{popup.remove(); btn.classList.remove('clicked');},1300);
+    });
 });
-backToTop.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
-
-// Modal functions
-const modal = document.getElementById('authModal');
-const modalTitle = document.getElementById('modalTitle');
-const signupFields = document.getElementById('signupFields');
-const authButton = document.getElementById('authButton');
-const toggleText = document.querySelector('.toggle-modal');
-
-function openModal(type) {
-    modal.style.display = 'flex';
-    if(type==='signup'){ modalTitle.textContent='Sign Up'; signupFields.style.display='block'; authButton.textContent='Sign Up'; toggleText.textContent='Already have an account? Log In'; }
-    else{ modalTitle.textContent='Sign In'; signupFields.style.display='none'; authButton.textContent='Sign In'; toggleText.textContent="Don't have an account? Sign Up"; }
-}
-
-function closeModal(){ modal.style.display='none'; }
-
-function toggleAuth(){ 
-    if(modalTitle.textContent==='Sign In'){ openModal('signup'); } 
-    else{ openModal('login'); } 
-}
-
-// Close modal on outside click
-window.onclick = function(event){ if(event.target==modal){ closeModal(); } }
 </script>
-
 </body>
 </html>
